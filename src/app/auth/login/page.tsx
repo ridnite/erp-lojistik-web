@@ -21,7 +21,7 @@ export default function Home() {
         },
     });
 
-    const onSubmit = (data: { username: string; password: string }) => {
+    const onSubmit = (data: z.infer<typeof loginSchema>) => {
         console.log(data);
     }
 
@@ -45,7 +45,7 @@ export default function Home() {
                 </div>
                 <Button type="submit" className='w-full mt-2 bg-chart-1 text-lg'>Giriş yap</Button>
                 <div className='w-4/5 h-0.5 bg-border'></div>
-                <Link href="/auth/register" className='text-sm text-blue-500'>Hesabın yok mu? Hesap erişimi talep et</Link>
+                <Link href="/auth/exm" className='text-sm text-blue-500'>Örnek kullanıcılar ve yetkilendirme</Link>
             </form>
         </div>
     );
