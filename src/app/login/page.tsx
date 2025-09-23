@@ -1,18 +1,23 @@
 'use client';
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { set, z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
+const server = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
 const loginSchema = z.object({
     username: z.string().min(2, "Kullanıcı adı zorunludur"),
     password: z.string().min(2, "Şifre zorunludur"),
 });
 
 export default function Home() {
+    const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const router = useRouter();
+
     const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: zodResolver(loginSchema),
         defaultValues: {
@@ -21,8 +26,16 @@ export default function Home() {
         },
     });
 
-    const onSubmit = (data: z.infer<typeof loginSchema>) => {
-        console.log(data);
+    const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+        try {
+            const response = await axios.post(`${server}/api/auth/signin`, data, {
+                withCredentials: true
+            });
+            setErrorMessage(null);
+            router.push('/dashboard');
+        } catch (error: any) {
+            setErrorMessage(error.response?.data?.message || 'Giriş başarısız');
+        }
     }
 
     return (
@@ -43,9 +56,9 @@ export default function Home() {
                     </div>
                     <Input id="password" type="password" placeholder='Şifre' {...register("password")} />
                 </div>
+                {<span className='text-sm text-red-500'>{errorMessage}</span>}
                 <Button type="submit" className='w-full mt-2 bg-chart-1 text-lg'>Giriş yap</Button>
                 <div className='w-4/5 h-0.5 bg-border'></div>
-                <Link href="/auth/exm" className='text-sm text-blue-500'>Örnek kullanıcılar ve yetkilendirme</Link>
             </form>
         </div>
     );
