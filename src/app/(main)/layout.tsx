@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import Sidebar from "@/components/Sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return (
@@ -8,7 +9,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </header>
             <div className="w-full flex flex-1">
                 <nav className="w-72 h-[calc(100vh-64px)] bg-sidebar border-r border-sidebar-border sticky top-16 overflow-y-scroll">
-                    
+                    <Sidebar />
                 </nav>
                 <main className="flex-1 p-6 bg-gradient-to-br from-background to-muted/30">
                     {children}
