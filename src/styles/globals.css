@@ -98,59 +98,50 @@
 }
 
 .dark {
-  /* Dark theme - Göz yormayan koyu tonlar */
-  --background: oklch(12% 0.006 220);          /* Çok koyu ama sıfır siyah değil */
-  --foreground: oklch(92% 0.004 220);          /* Çok açık gri metin */
-  --card: oklch(15% 0.008 220);                /* Kart arka planları */
-  --card-foreground: oklch(92% 0.004 220);     /* Kart metinleri */
-  --popover: oklch(15% 0.008 220);             /* Popover arka plan */
-  --popover-foreground: oklch(92% 0.004 220);  /* Popover metin */
+  --background: oklch(12% 0.006 220);     
+  --foreground: oklch(92% 0.004 220);  
+  --card: oklch(15% 0.008 220);        
+  --card-foreground: oklch(92% 0.004 220);
+  --popover: oklch(15% 0.008 220);         
+  --popover-foreground: oklch(92% 0.004 220); 
   
-  /* Primary - Softened blue for dark mode */
-  --primary: oklch(65% 0.15 235);              /* Daha açık, göz yormayan mavi */
-  --primary-foreground: oklch(12% 0.006 235);  /* Koyu metin */
+  --primary: oklch(65% 0.15 235);   
+  --primary-foreground: oklch(12% 0.006 235);
   
-  /* Secondary - Dark grays */
-  --secondary: oklch(22% 0.008 220);           /* Koyu gri */
-  --secondary-foreground: oklch(85% 0.004 220); /* Açık gri metin */
+  --secondary: oklch(22% 0.008 220);         
+  --secondary-foreground: oklch(85% 0.004 220);
   
-  /* Muted - Dark subtle tones */
-  --muted: oklch(18% 0.008 220);               /* Koyu arka plan */
-  --muted-foreground: oklch(65% 0.006 220);    /* Orta ton metin */
+  --muted: oklch(18% 0.008 220); 
+  --muted-foreground: oklch(65% 0.006 220); 
   
-  /* Accent - Soft blue highlight */
-  --accent: oklch(25% 0.012 235);              /* Koyu mavi vurgu */
-  --accent-foreground: oklch(85% 0.008 235);   /* Açık mavi metin */
+  --accent: oklch(25% 0.012 235);
+  --accent-foreground: oklch(85% 0.008 235);  
   
-  /* Status colors - Dark mode optimized */
-  --success: oklch(65% 0.12 160);              /* Göz yormayan yeşil */
-  --success-foreground: oklch(12% 0.006 160);  /* Koyu metin */
-  --warning: oklch(75% 0.12 85);               /* Yumuşak turuncu */
-  --warning-foreground: oklch(15% 0.008 85);   /* Koyu metin */
-  --destructive: oklch(68% 0.14 25);           /* Yumuşak kırmızı */
-  --destructive-foreground: oklch(12% 0.006 25); /* Koyu metin */
+  --success: oklch(65% 0.12 160);    
+  --success-foreground: oklch(12% 0.006 160); 
+  --warning: oklch(75% 0.12 85);       
+  --warning-foreground: oklch(15% 0.008 85);  
+  --destructive: oklch(68% 0.14 25);    
+  --destructive-foreground: oklch(12% 0.006 25);
   
-  /* Borders and inputs - Dark theme */
-  --border: oklch(28% 0.008 220);              /* Görünür ama yumuşak çerçeve */
-  --input: oklch(18% 0.008 220);               /* Input arka plan */
-  --ring: oklch(65% 0.15 235);                 /* Focus ring */
+  --border: oklch(28% 0.008 220);    
+  --input: oklch(18% 0.008 220);    
+  --ring: oklch(65% 0.15 235);     
   
-  /* Chart colors - Dark mode friendly */
-  --chart-1: oklch(62% 0.16 235);              /* Açık mavi */
-  --chart-2: oklch(68% 0.14 160);              /* Açık yeşil */
-  --chart-3: oklch(75% 0.12 85);               /* Açık turuncu */
-  --chart-4: oklch(58% 0.13 275);              /* Açık mor */
-  --chart-5: oklch(52% 0.08 200);              /* Açık teal */
+  --chart-1: oklch(62% 0.16 235);    
+  --chart-2: oklch(68% 0.14 160);    
+  --chart-3: oklch(75% 0.12 85);    
+  --chart-4: oklch(58% 0.13 275);
+  --chart-5: oklch(52% 0.08 200); 
   
-  /* Sidebar - Dark professional */
-  --sidebar: oklch(10% 0.008 220);             /* Çok koyu sidebar */
-  --sidebar-foreground: oklch(88% 0.004 220);  /* Açık sidebar metin */
-  --sidebar-primary: oklch(65% 0.15 235);      /* Sidebar aktif */
+  --sidebar: oklch(10% 0.008 220); 
+  --sidebar-foreground: oklch(88% 0.004 220); 
+  --sidebar-primary: oklch(65% 0.15 235);   
   --sidebar-primary-foreground: oklch(12% 0.006 235);
-  --sidebar-accent: oklch(20% 0.010 235);      /* Sidebar hover */
+  --sidebar-accent: oklch(20% 0.010 235);   
   --sidebar-accent-foreground: oklch(85% 0.008 235);
-  --sidebar-border: oklch(25% 0.008 220);      /* Sidebar çerçeve */
-  --sidebar-ring: oklch(65% 0.15 235);         /* Sidebar focus */
+  --sidebar-border: oklch(25% 0.008 220);   
+  --sidebar-ring: oklch(65% 0.15 235);  
 }
 
 @layer base {
@@ -161,10 +152,9 @@
   body {
     @apply bg-background text-foreground;
     transition: background-color 0.2s ease, color 0.2s ease;
-    font-feature-settings: "rlig" 1, "calt" 1; /* Better typography */
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
   
-  /* Logistics-specific utility classes */
   .status-delivered {
     @apply bg-success/10 text-success border border-success/20 rounded-md px-2 py-1 text-xs font-medium;
   }
@@ -181,7 +171,6 @@
     @apply bg-chart-5/10 text-chart-5 border border-chart-5/20 rounded-md px-2 py-1 text-xs font-medium;
   }
   
-  /* Professional table styling */
   .logistics-table {
     @apply w-full border-collapse;
   }
@@ -198,7 +187,6 @@
     @apply bg-accent/30;
   }
   
-  /* Dashboard card styling */
   .dashboard-card {
     @apply bg-card border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-all duration-200;
   }
@@ -211,7 +199,6 @@
     @apply text-sm text-muted-foreground font-medium;
   }
   
-  /* Focus improvements for accessibility */
   input:focus,
   button:focus,
   select:focus,
@@ -219,7 +206,6 @@
     @apply outline-2 outline-offset-2 outline-ring;
   }
   
-  /* Professional button variants */
   .btn-logistics-primary {
     @apply bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-md font-medium transition-colors focus:outline-2 focus:outline-offset-2 focus:outline-ring;
   }
@@ -228,7 +214,6 @@
     @apply bg-secondary hover:bg-secondary/80 text-secondary-foreground px-4 py-2 rounded-md font-medium transition-colors border border-border;
   }
   
-  /* Loading states */
   .loading-shimmer {
     background: linear-gradient(90deg, transparent, oklch(var(--muted) / 0.4), transparent);
     background-size: 200% 100%;

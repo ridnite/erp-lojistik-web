@@ -1,5 +1,7 @@
 'use client'
 import React, { useState, useEffect } from 'react'
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { FaUser } from "react-icons/fa";
 import {
     DropdownMenu,
@@ -13,9 +15,12 @@ import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Button } from './ui/button';
 
+const server = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
+
 const Header = () => {
     const [username, setUsername] = useState<string | null>(null);
-    const { setTheme } = useTheme()
+    const { setTheme } = useTheme();
+    const router = useRouter();
 
     useEffect(() => {
         const allCookies = document.cookie.split("; ");
@@ -30,6 +35,15 @@ const Header = () => {
             }
         }
     }, []);
+
+    const logout = async () => {
+        try {
+            await axios.post(`${server}/api/auth/signout`, {}, { withCredentials: true });
+            router.push('/');
+        } catch (error) {
+            console.error("Logout error:", error);
+        }
+    }
 
     return (
         <nav className='w-full h-full flex items-center justify-between'>
@@ -63,7 +77,7 @@ const Header = () => {
                     <DropdownMenuContent>
                         <DropdownMenuLabel>Hesap</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>Çıkış Yap</DropdownMenuItem>
+                        <DropdownMenuItem onClick={logout}>Çıkış Yap</DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
