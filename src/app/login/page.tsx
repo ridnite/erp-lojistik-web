@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const server = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:5000";
 const loginSchema = z.object({
@@ -132,13 +133,9 @@ export default function Home() {
 
                 <p className='text-sm text-muted-foreground text-center'>
                     Hesabınız yok mu?
-                    <button
-                        type="button"
-                        className='ml-1 text-primary hover:underline font-medium transition-colors'
-                        onClick={() => {/* Handle registration */ }}
-                    >
+                    <Link href="/register" className='ml-1 text-primary hover:underline font-medium transition-colors'>
                         Kayıt olun
-                    </button>
+                    </Link>
                 </p>
             </form>
         </div>

@@ -12,9 +12,11 @@ import { GiTrade } from "react-icons/gi";
 const Sidebar = () => {
   const pathname = usePathname();
   const [role, setRole] = useState<string | null>(null);
-  const [color, setColor] = useState<string>("");
+  const [color, setColor] = useState<string>("bg-chart-1");
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
     const allCookies = document.cookie.split("; ");
     const userInfoCookie = allCookies.find((row) => row.startsWith("userInfo="));
     if (userInfoCookie) {
@@ -46,126 +48,132 @@ const Sidebar = () => {
         setColor("bg-chart-1");
         break;
     }
-  }, []);
+  }, [role]);
 
   return (
-    <div className='w-full h-fit flex flex-col p-4 gap-4'>
-      <Link href={"/dashboard"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/dashboard" ? "bg-sidebar-accent" : ""}`}>
-        <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-          <MdHome className='text-xl' />
+    <div className='w-full h-fit flex flex-col p-4 gap-3'>
+      <div className='mb-2'>
+        <h3 className="text-sm font-semibold text-sidebar-foreground/70 uppercase tracking-wide">
+          Navigasyon
+        </h3>
+      </div>
+      
+      <Link href={"/dashboard"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/dashboard" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+        <div className={`w-8 h-8 ${isClient ? color : 'bg-chart-1'} rounded-lg flex items-center justify-center flex-shrink-0`}>
+          <MdHome className='text-white text-lg' />
         </div>
-        <p className='text-xl font-semibold'>Ana sayfa</p>
+        <p className='text-base md:text-lg font-medium truncate'>Ana sayfa</p>
       </Link>
       {
-        role === "employee" ? (
+        isClient && role === "employee" ? (
           <>
-            <Link href={"/my-tasks"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/my-tasks" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <FaTasks className='text-xl' />
+            <Link href={"/my-tasks"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/my-tasks" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <FaTasks className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Görevlerim</p>
+              <p className='text-base md:text-lg font-medium truncate'>Görevlerim</p>
             </Link>
           </>
         ) : null
       }
       {
-        role === "manager" ? (
+        isClient && role === "manager" ? (
           <>
-            <Link href={"/all-tasks"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/all-tasks" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <MdTask className='text-xl' />
+            <Link href={"/all-tasks"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/all-tasks" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <MdTask className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Görev yönetimi</p>
+              <p className='text-base md:text-lg font-medium truncate'>Görev yönetimi</p>
             </Link>
-            <Link href={"/warehouse"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/warehouse" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <FaWarehouse className='text-xl' />
+            <Link href={"/warehouse"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/warehouse" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <FaWarehouse className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Depo yönetimi</p>
+              <p className='text-base md:text-lg font-medium truncate'>Depo yönetimi</p>
             </Link>
-            <Link href={"/warehouse-employees"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/warehouse-employees" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <GrUserWorker className='text-xl' />
+            <Link href={"/warehouse-employees"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/warehouse-employees" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <GrUserWorker className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Depo çalışanları</p>
+              <p className='text-base md:text-lg font-medium truncate'>Depo çalışanları</p>
             </Link>
           </>
         ) : null
       }
       {
-        role === "trader" ? (
+        isClient && role === "trader" ? (
           <>
-            <Link href={"/stock"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/stock" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <BsBox2Fill className='text-xl' />
+            <Link href={"/stock"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/stock" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <BsBox2Fill className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Stok</p>
+              <p className='text-base md:text-lg font-medium truncate'>Stok</p>
             </Link>
-            <Link href={"/trade-history"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/trade-history" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <GiTrade className='text-xl' />
+            <Link href={"/trade-history"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/trade-history" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <GiTrade className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Ticaret geçmişi</p>
+              <p className='text-base md:text-lg font-medium truncate'>Ticaret geçmişi</p>
             </Link>
-            <Link href={"/trade-in"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/trade-in" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <FaArrowsDownToLine className='text-xl' />
+            <Link href={"/trade-in"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/trade-in" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <FaArrowsDownToLine className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Alım</p>
+              <p className='text-base md:text-lg font-medium truncate'>Alım</p>
             </Link>
-            <Link href={"/trade-out"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/trade-out" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <FaArrowsUpToLine className='text-xl' />
+            <Link href={"/trade-out"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/trade-out" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <FaArrowsUpToLine className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Satış</p>
+              <p className='text-base md:text-lg font-medium truncate'>Satış</p>
             </Link>
           </>
         ) : null
       }
       {
-        role === "bookkeeper" ? (
+        isClient && role === "bookkeeper" ? (
           <>
-            <Link href={"/ciro"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/ciro" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <FaMoneyBillTransfer className='text-xl' />
+            <Link href={"/ciro"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/ciro" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <FaMoneyBillTransfer className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Gelir - Gider</p>
+              <p className='text-base md:text-lg font-medium truncate'>Gelir - Gider</p>
             </Link>
-            <Link href={"/employers"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/employers" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <GrUserWorker className='text-xl' />
+            <Link href={"/employers"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/employers" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <GrUserWorker className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Çalışanlar</p>
+              <p className='text-base md:text-lg font-medium truncate'>Çalışanlar</p>
             </Link>
-            <Link href={"/products"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/products" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <BsBox2Fill className='text-xl' />
+            <Link href={"/products"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/products" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <BsBox2Fill className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Ürünler</p>
+              <p className='text-base md:text-lg font-medium truncate'>Ürünler</p>
             </Link>
           </>
         ) : null
       }
       {
-        role === "admin" ? (
+        isClient && role === "admin" ? (
           <>
-            <Link href={"/finans-ozeti"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/finans-ozeti" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <FaMoneyBillTransfer className='text-xl' />
+            <Link href={"/finans-ozeti"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/finans-ozeti" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <FaMoneyBillTransfer className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Finans özeti</p>
+              <p className='text-base md:text-lg font-medium truncate'>Finans özeti</p>
             </Link>
-            <Link href={"/depolar-ve-urunler"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/depolar-ve-urunler" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <FaWarehouse className='text-xl' />
+            <Link href={"/depolar-ve-urunler"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/depolar-ve-urunler" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <FaWarehouse className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Depolar ve ürünler</p>
+              <p className='text-base md:text-lg font-medium truncate'>Depolar ve ürünler</p>
             </Link>
-            <Link href={"/calisanlar"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-4 gap-2 ${pathname === "/calisanlar" ? "bg-sidebar-accent" : ""}`}>
-              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center text-2xl text-white`}>
-                <GrUserWorker className='text-xl' />
+            <Link href={"/calisanlar"} className={`w-full h-12 rounded-lg hover:bg-sidebar-accent transition-all flex items-center px-3 gap-3 ${pathname === "/calisanlar" ? "bg-sidebar-accent text-sidebar-accent-foreground" : "text-sidebar-foreground"}`}>
+              <div className={`w-8 h-8 ${color} rounded-lg flex items-center justify-center flex-shrink-0`}>
+                <GrUserWorker className='text-white text-lg' />
               </div>
-              <p className='text-xl font-semibold'>Çalışanlar</p>
+              <p className='text-base md:text-lg font-medium truncate'>Çalışanlar</p>
             </Link>
           </>
         ) : null
